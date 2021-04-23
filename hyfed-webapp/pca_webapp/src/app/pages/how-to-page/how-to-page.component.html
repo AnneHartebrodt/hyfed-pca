@@ -15,14 +15,199 @@
     <div class="card">
       <div class="card-content">
         <div class="content">
-          <h2>Pca - Introduction</h2>
+         <!--- <h2>Fever-PCA- File Format</h2>
+          <p>
+            Input file formats supported by <b>Fever-PCA</b> is completely consistent with
+            <a href="https://www.cog-genomics.org/plink/1.9/formats">PLINK </a>. <b>Fever-PCA</b> supports the
+            following input files:
+          </p>
+          <ul>
+            <li>.bed: The binary file containing values of SNPs for each patient.</li>
+            <li>.bim: The file including the metadata of SNPs (e.g. SNP name, chormosome number, and base pair distance)</li>
+            <li>.fam: The file containing phenotype values (e.g. Case or Control or quantitative values)</li>
+            <li>.pheno: The file including phenotype values that can override those in .fam file</li>
+            <li>.cov: The file has the values of confounding features (e.g. sex and age)</li>
+          </ul>
 
-          <h2>Pca - Installation</h2>
+          <b>Important Note:</b> Control/Case values must be coded as 1/2 in .fam or .pheno files for <b>Fever-PCA</b>
+          <h2>Fever-PCA - User Guide</h2>
+-->
+          <p>
+            This tutorial shows how to set up a federated PCA run, using the web interface and the local clients, which
+            run on the data holders machine and take care of the communication and
+          </p>
+          <p>
+            There are two roles in a federated study, the coordinator and a partipant/client. A user can be a
+            coordinator or participant and the coordinator can simulatenously act as a participant as well. The coordinator
+            is the manager of the study, while participants join the study with their data. Only the parameters will be shared.
+            The coordinator uses the web interface to create the project and tokens and see the results.
+            The participants employ the web interface only to sign up and create their user account. They use the client package to join the project,
+            perform the local computations on their local data, and download the results. In the following, we provide
+            you with a step-by-step guid on how to use <b>Fever-PCA</b>.
+          </p>
 
-          <h2>Pca - Tutorial</h2>
+          <h3>Step - 1: Create User Account & Login</h3>
+          <p>
+            The first step is to create a user account that will be associated with all projects a user either creates as coordinator or joins as participant. In this tutorial, we assume
+            there are two participants and a coordinator. The username and password of the coordinator and participants
+            are as follows:
+          </p>
+          <ul>
+            <li>The coordinator
+              <ul>
+                <li>username: usr0 </li>
+                <li>password: pass0 </li>
+              </ul>
+            </li>
 
+            <li>First participant
+              <ul>
+                <li>username: usr1 </li>
+                <li>password: pass1 </li>
+              </ul>
+            </li>
+
+            <li>Second participant
+              <ul>
+                <li>username: usr2 </li>
+                <li>password: pass2 </li>
+              </ul>
+            </li>
+          </ul>
+          <p>
+            To create three aforementioned user accounts, go to
+            <a href="https://federated.compbio.sdu.dk/account">sign up page</a> and enter the username and password
+            of each user twice to sign up.
+          </p>
+
+          <p><b>Important Note:</b> Usernames must be unique and you should use safe passwords to protect your account.
+            It means that you need to use user names other than what we used in this tutorial or skip this step and use
+            already created user accounts in the next steps.</p>
+
+          <figure>
+            <img src="assets/how_to_page/signup.png" alt="Sign up" height="200" width="300"/>
+            <figcaption>Sign up</figcaption>
+          </figure>
+
+          <h3>Step - 2: Download</h3>
+            The second step is to download the appropriate client package to your machine using the following links:
+          <ul>
+              <li><a href="assets/fed_pca_client_linux.tar" download>Ubuntu/Linux Client</a></li>
+
+          </ul>
+          <p>
+          Afterwards, download our <a href="assets/example_data.zip" download>sample data</a> for testing purposes.
+          This data set is a small sample data set to demonstrate the functionality of the tool. The data is the
+            MNIST handwritten digit database and has been downloaded from <a href="http://yann.lecun.com/exdb/mnist/">this webpage</a>.
+            We provide the data pre-split into 3 example folders with column names and row names. We highly suggest using
+            row and column names in all your files.
+          </p>
+          <ul>
+            <li>mnist-test.tsv containing tabular test data.</li>
+          </ul>
+          <p>
+            <b>Note:</b> the Fever-PCA client package has been tested on Ubuntu 18.04 <br />
+          </p>
+          <h3>Step - 3: Project creation</h3>
+          <p>
+            Only the coordinator can create a new project. To this end, the coordinator first logs in using their username and password.
+            After logging in, under the "Projects" tab, the coordinator can see the previous projects or
+            create a new project. In order to create a new project, the coordinator needs to specify the following project
+            parameters:
+          </p>
+
+          <ul>
+            <li>Project name: descriptive name for the project </li>
+            <li>Algorithm: Vertical Power iteration or sequential iteration</li>
+            <li>Max iterations: number of algorithm iterations </li>
+            <li>Dimensions: number of dimensions to calculate </li>
+            <li>Federated QR normalisation: Check if the Eigenvectors cannot be sent around! (Default) </li>
+            <li>Send final result: Send the final Eigenvectors to all clients </li>
+          </ul>
+
+          <p>
+            In this tutorial, the coordinator creates a project using the default setting. Depending on the data
+            you use and the number of Eigenvectors you want to compute, 20 iterations might be a low number. Generally speaking,
+            the first few Eigenvectors converge quickly while higher-rank Eigenvectors take more iterations. This is and
+            intrinsic property of PCA.
+          </p>
+
+          <figure>
+          <img src="assets/how_to_page/create_projects.png" alt="create project" height="300" width="400"/>
+            <figcaption>Project creation</figcaption>
+          </figure>
+
+          <figure>
+          <img src="assets/how_to_page/project_info.png" alt="project page" height="300" width="400"/>
+            <figcaption>Project Info</figcaption>
+          </figure>
+
+
+          <h3>Step - 4: Project tokens</h3>
+          <p>
+            Tokens are an essential part when it comes to accessing projects. For every participant, the coordinator
+            creates a token granting a participant access to the project and shares each generated token with a
+            participant.
+            In the "Participants" section, the coordinator get an overview about tokens that have been created and/or are already
+            used by a contributor.
+            Additionally, the coordinator can delete tokens, thereby withdrawing the access to the project for the corresponding
+            client. When the coordinator created a token for every
+            participant, he/she can share the specific token with them via e-mail, inviting them to join. Once participants
+            have joined it is not possible anymore to create any further tokens, so make sure you chose the correct number
+            before notifying your participants.
+          </p>
+
+          <figure>
+          <img src="assets/how_to_page/tokens.png" alt="created tokens" height="350" width="600"/>
+            <figcaption>Project Tokens</figcaption>
+          </figure>
+
+
+          <h3>Step - 5: Project joining and participation</h3>
+          <p>
+            After receiving a token from the coordinator, each participant follows three steps in order to successfully
+            join the project and participate in the computation. Each participant runs a copy of Fever-PCA executable client
+            and enters their username, password, and  token in the corresponding boxes.
+          </p>
+          <ol>
+            <li> Run the executable client package downloaded at step 2.</li>
+            <li> Enter their user account information (created at step 1) and token (step 4) into the corresponding text
+              fields and press "Join". Then, the corresponding project parameters enforced by the coordinator,
+              will be retrieved automatically by the participant.
+            </li>
+            <li> Press "Run".
+            </li>
+          </ol>
+
+          <figure>
+          <img src="assets/how_to_page/client_join.png" alt="client join" height="300" width="400"/>
+            <figcaption>Project Join</figcaption>
+          </figure>
+
+          If join is successful, a new window is opened and the participants can click on <i>Browse</i> button
+          to select <i>Dataset File </i>(<i>.tsv</i> file), and chose the appropriate data settings. Some information
+          is greyed out and only serves to inform the participants of the choices the coordinator made regarding parameters.
+
+          <figure>
+            <img src="assets/how_to_page/configure_client.png" alt="run window" height="400" width="500"/>
+            <figcaption>Run Window</figcaption>
+          </figure>
+
+          Next, the participants click on <i>Run</i> button to start the project. If everything is OK, the running window will appear.
+          Otherwise, <b><i>Fever-PCA</i></b> client will get an error message indicating what went wrong. Choose the correct settings
+          and configure the local data. It is important, that the columns and rows are named correctly, because they need to
+          be matched across clients. With vertical data partitioning row names are mandatory. Generally it is recommended to
+          always use column and row names to avoid problems.
+
+          <figure>
+            <img src="assets/how_to_page/running_window.png" alt="running window" height="400" width="500"/>
+            <figcaption>Running Window</figcaption>
+          </figure>
+
+          <h3>Step - 6: View Results</h3>
+          After the project is completed, the results are automatically downloaded to the clients machines.
         </div>
-        </div>
+      </div>
     </div>
   </section>
 </div>

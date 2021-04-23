@@ -3,7 +3,7 @@
     <div class="container is-fluid">
       <section class="section">
         <h1 class="title">
-          <i class="fa fa-chart-network"></i> Pca
+          <i class="fa fa-chart-network"></i> Fever-PCA
         </h1>
       </section>
     </div>
@@ -16,10 +16,57 @@
       <div class="card-content">
         <div class="content">
           <p>
-            <b>Pca</b> is a template to develop federated tools using <b>HyFed</b> API.
+            <i>Fever-PCA (<b>Fe</b>derated <b>PCA</b> for <b>ver</b>tically partionned data) </i> is a federated, privacy-preserving tool for Principal Component Analysis, including
+            patient stratification and dimensionality reduction.
+           </p>
+
+          <p>
+            Unlike centralised PCA the data stays with the data owner and only
+            model parameters are exchanged. For patient stratification, it is possible to compute the eigenvectors of the
+            patient-by-patient covariance matrix, without exchanging the eigenvectors of this matrix. Only the eigenvectors
+            of the feature-by-feature covariance matrix need to be exchanged. </p>
+
+             <figure>
+            <img src="assets/index_page/gwas_pca.png" alt="Sign up" height="400" width="600"/>
+            <figcaption>PCA for feature reduction (top) and sample stratification (bottom), here for GWAS specifically</figcaption>
+          </figure>
+
+           <p>
+            For more information please refer to our publication:
           </p>
+
+          <div class="illustrations">
+            <div class="columns">
+              <div class="is-half">
+                <figure>
+
+                </figure>
+              </div>
+              <div class="is-half">
+                <figure>
+                </figure>
+              </div>
+            </div>
+            <div class="columns">
+              <div class="is-half">
+                <figure>
+                </figure>
+              </div>
+            </div>
+          </div>
+
+
+         <!---<div class="has-text-centered video">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/5Jw85ssnUTo"
+                    frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+            </iframe>
+          </div> --->
+
         </div>
       </div>
     </div>
   </section>
 </div>
+
+
