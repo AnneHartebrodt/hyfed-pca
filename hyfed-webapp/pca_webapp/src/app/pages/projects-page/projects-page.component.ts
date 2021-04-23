@@ -16,6 +16,14 @@ export class ProjectsPageComponent implements OnInit {
     algorithm: 'Select',
     name: '',
     description: '',
+    max_iterations: 500,
+    epsilon: 1e-9,
+    center: true,
+    log2: false,
+    scale_variance: false,
+    federated_qr: true,
+    max_dimensions: 10,
+    send_final_result: false,
   };
 
   constructor(private router: Router, private projectService: ProjectService) {

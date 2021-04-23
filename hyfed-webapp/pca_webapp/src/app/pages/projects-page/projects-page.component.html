@@ -28,7 +28,7 @@
             <div class="select">
               <select class="input" [(ngModel)]="newProject.tool" id="npTool">
                 <option value="Select">Select</option>
-                <option value="Pca">Pca</option>
+                <option value="Pca">PCA</option>
               </select>
             </div>
           </div>
@@ -40,7 +40,7 @@
               <div class="select">
                 <select class="input" [(ngModel)]="newProject.algorithm" id="npPcaAlgorithm">
                   <option value="Select">Select</option>
-                  <option value="My-Algorithm">My-Algorithm</option>
+                  <option value="My-Algorithm">Vertical PCA</option>
                 </select>
               </div>
           </div>
@@ -61,6 +61,38 @@
               </div>
           </div>
           <!-- END Pca SPECIFIC Name AND Description FIELDS -->
+
+          <div class="field" *ngIf="newProject.tool === 'PCA' && newProject.algorithm === 'VERTICAL_POWER_ITERATIONS'">
+                 <label class="label" for="npMaxIterations">Max iterations</label>
+                 <div class="control" style="width:30%">
+                   <input class="input" [(ngModel)]="newProject.max_iterations" id="npMaxIterations" placeholder="Integer (e.g. 150)" />
+                 </div>
+             </div>
+
+          <div class="field" *ngIf="newProject.tool === 'PCA' && newProject.algorithm === 'VERTICAL_POWER_ITERATIONS'">
+                 <label class="label" for="npDimensions">Max iterations</label>
+                 <div class="control" style="width:30%">
+                   <input class="input" [(ngModel)]="newProject.max_iterations" id="npDimensions" placeholder="Integer (e.g. 10)" />
+                 </div>
+             </div>
+
+
+          <div class="field" *ngIf="newProject.tool === 'PCA' && newProject.algorithm === 'VERTICAL_POWER_ITERATION'">
+                 <label class="label" for="npEpsilon">Learning rate</label>
+                 <div class="control" style="width:30%">
+                   <input class="input" [(ngModel)]="newProject.epsilon" id="npEpsilon" placeholder=" Float number (e.g. 0.1)" />
+                 </div>
+             </div>
+
+          <label class="label" for="send_final_result" *ngIf="newProject.algorithm === 'VERTICAL_POWER_ITERATION'|| newProject.algorithm === 'HORIZONTAL_POWER_ITERATION'|| newProject.algorithm === 'VERTICAL_SEQUENTIAL_ITERATION'">Send final results to other clients</label>
+            <div class="field is-vertical" *ngIf="newProject.algorithm === 'VERTICAL_POWER_ITERATION'|| newProject.algorithm === 'HORIZONTAL_POWER_ITERATION'|| newProject.algorithm === 'VERTICAL_SEQUENTIAL_ITERATION'">
+              <div class="field-body">
+                <div class="field is-narrow">
+                  <input [(ngModel)]="newProject.send_final_result" type="checkbox" id="send_final_result" name="send_final_result" title="send_final_result" value="send_final_result">
+                  <label for="send_final_result"> Send final result </label><br>
+                </div>
+                </div>
+            </div>
 
           <!-- BEGIN Pca SPECIFIC DISABLE/ENABLE Create BUTTON -->
           <div class="field">

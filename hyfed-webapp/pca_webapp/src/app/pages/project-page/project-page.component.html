@@ -53,7 +53,36 @@
           </p>
 
           <!-- BEGIN Pca SPECIFIC (HYPER-)PARAMETER VALUES -->
-
+          <p>
+            Current iteration: {{project.current_iteration}}
+          </p>
+          <p>
+            Dimensions: {{project.dimensions}}
+          </p>
+          <p *ngIf="project.algorithm == 'VERTICAL_POWER_ITERATION' && project.maxIterations >= 1">
+            Max iterations: {{project.maxIterations}}
+          </p>
+          <p *ngIf="project.algorithm == 'VERTICAL_POWER_ITERATION' && project.maxIterations < 1">
+            Max iterations: <span class="tag is-warning">unlimited</span>
+          </p>
+          <p>
+            Epsilon: {{project.epsilon}}
+          </p>
+          <p>
+            Center: {{project.center}}
+          </p>
+          <p>
+            Scale to unit variance: {{project.scale_variance}}
+          </p>
+          <p>
+            Log_2 transform data: {{project.log2}}
+          </p>
+          <p>
+            Fully federated QR factorisation: {{project.federated_qr}}
+          </p>
+          <p>
+            Send final result: {{project.send_final_result}}
+          </p>
           <!-- END Pca SPECIFIC (HYPER-)PARAMETER VALUES -->
 
         </div>

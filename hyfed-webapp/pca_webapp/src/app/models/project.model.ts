@@ -1,6 +1,6 @@
 import {BaseModel, IModelJson} from './base.model';
 
-type ToolType = 'Select' | 'PCA'; // ADD THE TOOL NAME(S) HERE
+type ToolType = 'Select' | 'VERTICAL_POWER_ITERATION'; // ADD THE TOOL NAME(S) HERE
 type AlgorithmType = 'Select' | 'Vertical-PCA'; // ADD THE ALGORITHM NAME(S) HERE
 
 type StatusType = 'Created' | 'Parameters Ready' | 'Aggregating' | 'Done' | 'Aborted' | 'Failed';
@@ -47,9 +47,9 @@ export class ProjectModel extends BaseModel<ProjectJson> {
   private _scaleVariance: boolean;
   private _log2: boolean;
   private _federated_qr: boolean;
-  private _send_final_result:boolean;
+  private _send_final_result: boolean;
   private _current_iteration: number;
-  private _epsilon:number;
+  private _epsilon: number;
   private _maxDimensions: number;
   private _maxIterations: number;
 
@@ -74,7 +74,7 @@ export class ProjectModel extends BaseModel<ProjectJson> {
     this._scaleVariance = proj.scale_variance;
     this._log2 = proj.log2;
     this._federated_qr = proj.federated_qr;
-    this._send_final_result =proj.send_final_result;
+    this._send_final_result = proj.send_final_result;
     this._current_iteration = proj.current_iteration;
     this._maxDimensions = proj.max_dimensions;
     this._maxIterations = proj.max_iterations;
@@ -129,26 +129,26 @@ export class ProjectModel extends BaseModel<ProjectJson> {
     return this._log2;
   }
 
-  public get federated_qr(): boolean{
+  public get federated_qr(): boolean {
     return this._federated_qr;
   }
-  public get current_iteration(): number{
+  public get current_iteration(): number {
     return this._current_iteration;
   }
 
-  public get send_final_result(): boolean{
+  public get send_final_result(): boolean {
     return this._send_final_result;
   }
 
   public get dimensions(): number {
-    return this._maxDimensions
+    return this._maxDimensions;
   }
 
   public get maxIterations(): number {
     return this._maxIterations;
   }
 
-  public get epsilon(): number{
+  public get epsilon(): number {
     return this._epsilon;
   }
 
