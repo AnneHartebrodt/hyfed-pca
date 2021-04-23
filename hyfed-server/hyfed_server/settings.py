@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'tick_tock_server',  # TickTock server app
 
     'stats_server',  # Stats server app
+    'pca_server',
 ]
 
 MIDDLEWARE = [

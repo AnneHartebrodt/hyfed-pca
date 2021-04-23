@@ -18,4 +18,4 @@
 
 
 class PcaAlgorithm:
-    pass
+    VERTICAL_POWER_ITERATION = 'VERTICAL_POWER_ITERATION'

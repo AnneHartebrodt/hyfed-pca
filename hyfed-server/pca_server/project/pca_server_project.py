@@ -24,6 +24,8 @@ from hyfed_server.util.utils import client_parameters_to_list
 from pca_server.util.pca_steps import PcaProjectStep
 from pca_server.util.pca_parameters import PcaGlobalParameter, PcaLocalParameter,\
     PcaProjectParameter
+from pca_server.util.pca_algorithms import PcaAlgorithm
+import numpy as np
 
 
 import logging
@@ -40,7 +42,53 @@ class PcaServerProject(HyFedServerProject):
         super().__init__(creation_request, project_model)
 
         try:
-            pass
+            pca_model_instance = project_model.objcts.get(id = self.project_id)
+
+            # attributes
+            max_iterations = creation_request.data[PcaProjectParameter.MAX_ITERATIONS]
+            pca_model_instance.max_iterations = max_iterations
+            self.max_iterations = max_iterations
+
+            max_dimensions = creation_request.data[PcaProjectParameter.MAX_DIMENSIONS]
+            pca_model_instance.max_dimensions = max_dimensions
+            self.max_dimensions = max_dimensions
+
+            center = creation_request.data[PcaProjectParameter.CENTER]
+            pca_model_instance.center = center
+            self.center = center
+
+            scale_variance = creation_request.data[PcaProjectParameter.SCALE_VARIANCE]
+            pca_model_instance.scale_variance = scale_variance
+            self.scale_variance = scale_variance
+
+            log2 = creation_request.data[PcaProjectParameter.LOG2]
+            pca_model_instance.log2 = log2
+            self.log2 = log2
+
+            federated_qr = creation_request.data[PcaProjectParameter.FEDERATED_QR]
+            pca_model_instance.federated_qr = federated_qr
+            self.federated_qr = federated_qr
+
+            send_final_result = creation_request.data[PcaProjectParameter.SEND_FINAL_RESULT]
+            pca_model_instance.send_final_result = send_final_result
+            self.send_final_result = send_final_result
+
+            epsilon = creation_request.data[PcaProjectParameter.EPSILON]
+            pca_model_instance.epsilon = epsilon
+            self.epsilon = epsilon
+
+            results_dir = 'pca_server/result'
+            pca_model_instance.result_dir = results_dir
+            self.result_dir = results_dir
+
+            pca_model_instance.save()
+            logger.debug(f"Project {self.project_id}: PCA specific attributes initialized!")
+
+            self.current_iteration = 1
+
+            # init some other global attributes
+            self.row_count = -1
+            self.column_count = -1
 
         except Exception as model_exp:
             logger.error(model_exp)

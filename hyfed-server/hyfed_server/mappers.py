@@ -14,6 +14,8 @@
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
+
+    Modified: 04/23/2021 Anne Hartebrodt: Add PCA model
 """
 
 # HyFed project
@@ -35,6 +37,10 @@ from my_tool_server.serializer.my_tool_serializers import MyToolProjectSerialize
 from stats_server.project.stats_server_project import StatsServerProject
 from stats_server.model.stats_model import StatsProjectModel
 from stats_server.serializer.stats_serializers import StatsProjectSerializer
+
+from pca_server.project.pca_server_project import PcaServerProject
+from pca_server.model.pca_model import PcaProjectModel
+from pca_server.serializer.pca_serializers import PcaProjectSerializer
 
 # server_project, project_model, and project_serializer are mappers used in webapp_view
 server_project = dict()
@@ -64,5 +70,10 @@ my_tool_name = 'MyTool'
 server_project[my_tool_name] = MyToolServerProject
 project_model[my_tool_name] = MyToolProjectModel
 project_serializer[my_tool_name] = MyToolProjectSerializer
+
+pca_tool = 'PCA'
+server_project[pca_tool] = PcaServerProject
+project_model[pca_tool] = PcaProjectModel
+project_serializer[pca_tool] = PcaProjectSerializer
 
 

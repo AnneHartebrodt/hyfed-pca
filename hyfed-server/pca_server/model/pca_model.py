@@ -25,5 +25,14 @@ class PcaProjectModel(HyFedProjectModel):
         The model inherits from HyFedProjectModel
         so it implicitly has id, name, status, etc, fields defined in the parent model
     """
+    max_iterations = models.PositiveIntegerField(default=0)
+    max_dimensions = models.PositiveIntegerField(default=0)
+    center = models.BooleanField(default=False)
+    scale_variance = models.BooleanField(default=False)
+    log2 = models.BooleanField(default=False)
+    federated_qr = models.BooleanField(default=True)
+    send_final_result = models.BooleanField(default=False)
+    current_iteration = models.PositiveIntegerField(default=1)
+    epsilon = models.FloatField(default=1e-9)
     pass
 

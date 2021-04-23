@@ -18,6 +18,15 @@
 
 
 class PcaProjectParameter:
+    EPSILON = 0.000001
+    NULL_VALUE = "NA"
+    SEND_FINAL_RESULT = False
+    FEDERATED_QR = True
+    MAX_ITERATIONS = 500
+    MAX_DIMENSIONS = 10
+    CENTER = True
+    SCALE_VARIANCE = True
+    LOG2 = True
     pass
 
 
