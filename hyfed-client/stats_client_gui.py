@@ -1,7 +1,7 @@
 """
     Stats client GUI
 
-    Copyright 2021 Reza NasiriGerdeh. All Rights Reserved.
+    Copyright 2021 'My Name'. All Rights Reserved.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -24,7 +24,6 @@ from hyfed_client.util.hyfed_parameters import HyFedProjectParameter, Connection
 from stats_client.widget.stats_project_info_widget import StatsProjectInfoWidget
 from stats_client.widget.stats_dataset_widget import StatsDatasetWidget
 from stats_client.project.stats_client_project import StatsClientProject
-from stats_client.util.stats_parameters import StatsProjectParameter
 
 import threading
 
@@ -57,8 +56,8 @@ class StatsClientGUI:
 
         #  create Stats project info widget based on the authentication and connection parameters
         self.stats_project_info_widget = StatsProjectInfoWidget(title="Stats Project Info",
-                                                                connection_parameters=connection_parameters,
-                                                                authentication_parameters=authentication_parameters)
+                                                                   connection_parameters=connection_parameters,
+                                                                   authentication_parameters=authentication_parameters)
 
         # Obtain Stats project info from the server
         # the project info will be set in project_parameters attribute of the info widget
@@ -109,28 +108,17 @@ class StatsClientGUI:
         project_description = project_parameters[HyFedProjectParameter.DESCRIPTION]
         coordinator = project_parameters[HyFedProjectParameter.COORDINATOR]
 
-        # Stats specific project info
-        features = project_parameters[StatsProjectParameter.FEATURES]
-        learning_rate = project_parameters[StatsProjectParameter.LEARNING_RATE]
-        max_iterations = project_parameters[StatsProjectParameter.MAX_ITERATIONS]
-
-        stats_dataset_file_path = self.stats_dataset_widget.get_dataset_file_path()
-
         # create Stats client project
         stats_client_project = StatsClientProject(username=username,
-                                                  token=token,
-                                                  server_url=server_url,
-                                                  project_id=project_id,
-                                                  algorithm=algorithm,
-                                                  name=project_name,
-                                                  description=project_description,
-                                                  coordinator=coordinator,
-                                                  result_dir='./stats_client/result',
-                                                  log_dir='./stats_client/log',
-                                                  stats_dataset_file_path=stats_dataset_file_path,
-                                                  features=features,
-                                                  learning_rate=learning_rate,
-                                                  max_iterations=max_iterations)
+                                                     token=token,
+                                                     server_url=server_url,
+                                                     project_id=project_id,
+                                                     algorithm=algorithm,
+                                                     name=project_name,
+                                                     description=project_description,
+                                                     coordinator=coordinator,
+                                                     result_dir='./stats_client/result',
+                                                     log_dir='./stats_client/log')
 
         # run Stats client project as a thread
         stats_project_thread = threading.Thread(target=stats_client_project.run)
@@ -139,7 +127,7 @@ class StatsClientGUI:
 
         # create and show Stats project status widget
         stats_project_status_widget = ProjectStatusWidget(title="Stats Project Status",
-                                                          project=stats_client_project)
+                                                            project=stats_client_project)
         stats_project_status_widget.add_log_and_quit_buttons()
         stats_project_status_widget.show()
 
