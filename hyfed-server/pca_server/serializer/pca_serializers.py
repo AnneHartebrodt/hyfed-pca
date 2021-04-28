@@ -23,46 +23,44 @@ from hyfed_server.serializer.hyfed_serializers import HyFedProjectSerializer
 class PcaProjectSerializer(HyFedProjectSerializer):
     """ Serializes the Pca project model to serve a WebApp/client request """
 
+    max_iterations = serializers.SerializerMethodField()
+    max_dimensions = serializers.SerializerMethodField()
+    center = serializers.SerializerMethodField()
+    scale_variance = serializers.SerializerMethodField()
+    log2 = serializers.SerializerMethodField()
+    federated_qr = serializers.SerializerMethodField()
+    send_final_result = serializers.SerializerMethodField()
+    current_iteration = serializers.SerializerMethodField()
+    epsilon = serializers.SerializerMethodField()
+
+    def get_max_iterations(self, instance):
+        return instance.max_iterations
+
+    def get_max_dimensions(self, instance):
+        return instance.max_dimensions
+
+    def get_center(self, instance):
+        return instance.center
+
+    def get_scale_variance(self, instance):
+        return instance.scale_variance
+
+    def get_log2(self, instance):
+        return instance.log2
+
+    def get_federated_qr(self, instance):
+        return  instance.federated_qr
+
+    def get_send_final_result(self, instance):
+        return instance.send_final_result
+
+    def get_current_iteration(self, instance):
+        return instance.current_iteration
+
+    def get_epsilon(self, instance):
+        return instance.epsilon
+
     class Meta(HyFedProjectSerializer.Meta):
-        fields = HyFedProjectSerializer.Meta.fields
-        max_iterations = serializers.SerializerMethodField()
-        max_dimensions = serializers.SerializerMethodField()
-        center = serializers.SerializerMethodField()
-        scale_variance =serializers.SerializerMethodField()
-        log2 = serializers.SerializerMethodField()
-        federated_qr =serializers.SerializerMethodField()
-        send_final_result =serializers.SerializerMethodField()
-        current_iteration = serializers.SerializerMethodField()
-        epsilon = serializers.SerializerMethodField()
-
-        def get_max_iterations(self, instance):
-            return instance.max_iterations
-
-        def get_max_dimensions(self, instance):
-            return instance.max_dimensions
-
-        def get_center(self, instance):
-            return instance.center
-
-        def get_scale_variance(self, instance):
-            return instance.scale_variance
-
-        def get_log2(self, instance):
-            return instance.log2
-
-        def get_federated_qr(self, instance):
-            return  instance.federated_qr
-
-        def get_send_final_result(self, instance):
-            return instance.send_final_result
-
-        def get_current_iteration(self, instance):
-            return instance.current_iteration
-
-        def get_epsilon(self, instance):
-            return instance.epsilon
-
-        class Meta(HyFedProjectSerializer.Meta):
-            fields = HyFedProjectSerializer.Meta.fields + ('max_iterations', 'max_dimensions', 'center',
-                                                           'scale_variance', 'log2', 'federated_qr', 'send_final_result',
-                                                           'current_iteration', 'epsilon',)
+        fields = HyFedProjectSerializer.Meta.fields + ('max_iterations', 'max_dimensions', 'center',
+                                                       'scale_variance', 'log2', 'federated_qr', 'send_final_result',
+                                                       'current_iteration', 'epsilon',)

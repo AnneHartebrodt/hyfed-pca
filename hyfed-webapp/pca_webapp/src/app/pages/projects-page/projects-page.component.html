@@ -28,33 +28,33 @@
             <div class="select">
               <select class="input" [(ngModel)]="newProject.tool" id="npTool">
                 <option value="Select">Select</option>
-                <option value="Pca">PCA</option>
+                <option value="PCA">PCA</option>
               </select>
             </div>
           </div>
           <!-- END Pca SPECIFIC TOOL SELECTION MENU -->
 
           <!-- BEGIN Pca SPECIFIC ALGORITHM SELECTION MENU -->
-          <div class="field" *ngIf="newProject.tool === 'Pca'">
+          <div class="field" *ngIf="newProject.tool === 'PCA'">
               <label class="label" for="npPcaAlgorithm">Algorithm</label>
               <div class="select">
                 <select class="input" [(ngModel)]="newProject.algorithm" id="npPcaAlgorithm">
                   <option value="Select">Select</option>
-                  <option value="My-Algorithm">Vertical PCA</option>
+                  <option value="VERTICAL_POWER_ITERATION">Vertical Power Iteration</option>
                 </select>
               </div>
           </div>
           <!-- END Pca SPECIFIC ALGORITHM SELECTION MENU -->
 
           <!-- BEGIN Pca SPECIFIC Name AND Description FIELDS -->
-          <div class="field" *ngIf="newProject.tool === 'Pca' && newProject.algorithm !== 'Select'">
+          <div class="field" *ngIf="newProject.tool === 'PCA' && newProject.algorithm !== 'Select'">
               <label class="label" for="npName">Name</label>
               <div class="control" style="width:30%">
                 <input class="input" [(ngModel)]="newProject.name" id="npName" placeholder="Name of the project" />
               </div>
           </div>
 
-          <div class="field" *ngIf="newProject.tool === 'Pca' && newProject.algorithm !== 'Select'">
+          <div class="field" *ngIf="newProject.tool === 'PCA' && newProject.algorithm !== 'Select'">
               <label class="label" for="npDescription">Description</label>
               <div class="control" style="width:70%">
                 <input class="input" [(ngModel)]="newProject.description" id="npDescription" placeholder="Description of the project" />
@@ -62,23 +62,23 @@
           </div>
           <!-- END Pca SPECIFIC Name AND Description FIELDS -->
 
-          <div class="field" *ngIf="newProject.tool === 'PCA' && newProject.algorithm === 'VERTICAL_POWER_ITERATIONS'">
+          <div class="field" *ngIf="newProject.tool === 'PCA' && newProject.algorithm === 'VERTICAL_POWER_ITERATION'">
                  <label class="label" for="npMaxIterations">Max iterations</label>
                  <div class="control" style="width:30%">
                    <input class="input" [(ngModel)]="newProject.max_iterations" id="npMaxIterations" placeholder="Integer (e.g. 150)" />
                  </div>
              </div>
 
-          <div class="field" *ngIf="newProject.tool === 'PCA' && newProject.algorithm === 'VERTICAL_POWER_ITERATIONS'">
-                 <label class="label" for="npDimensions">Max iterations</label>
+          <div class="field" *ngIf="newProject.tool === 'PCA' && newProject.algorithm === 'VERTICAL_POWER_ITERATION'">
+                 <label class="label" for="npDimensions">Max dimensions</label>
                  <div class="control" style="width:30%">
-                   <input class="input" [(ngModel)]="newProject.max_iterations" id="npDimensions" placeholder="Integer (e.g. 10)" />
+                   <input class="input" [(ngModel)]="newProject.max_dimensions" id="npDimensions" placeholder="Integer (e.g. 10)" />
                  </div>
              </div>
 
 
           <div class="field" *ngIf="newProject.tool === 'PCA' && newProject.algorithm === 'VERTICAL_POWER_ITERATION'">
-                 <label class="label" for="npEpsilon">Learning rate</label>
+                 <label class="label" for="npEpsilon">Epsilon</label>
                  <div class="control" style="width:30%">
                    <input class="input" [(ngModel)]="newProject.epsilon" id="npEpsilon" placeholder=" Float number (e.g. 0.1)" />
                  </div>

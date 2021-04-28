@@ -1,7 +1,7 @@
 import {BaseModel, IModelJson} from './base.model';
 
-type ToolType = 'Select' | 'VERTICAL_POWER_ITERATION'; // ADD THE TOOL NAME(S) HERE
-type AlgorithmType = 'Select' | 'Vertical-PCA'; // ADD THE ALGORITHM NAME(S) HERE
+type ToolType = 'Select' | 'PCA'; // ADD THE TOOL NAME(S) HERE
+type AlgorithmType = 'Select' | 'VERTICAL_POWER_ITERATION'; // ADD THE ALGORITHM NAME(S) HERE
 
 type StatusType = 'Created' | 'Parameters Ready' | 'Aggregating' | 'Done' | 'Aborted' | 'Failed';
 
@@ -18,16 +18,15 @@ export interface ProjectJson extends IModelJson {
   roles?: string[];
   token?: string;
   created_at?: string;
-
-  center: boolean;
-  scale_variance: boolean;
-  log2: boolean;
-  federated_qr: boolean;
-  send_final_result: boolean;
+  center?: boolean;
+  scale_variance?: boolean;
+  log2?: boolean;
+  federated_qr?: boolean;
+  send_final_result?: boolean;
   current_iteration?: number;
-  max_iterations: number;
-  max_dimensions: number;
-  epsilon: number;
+  max_iterations?: number;
+  max_dimensions?: number;
+  epsilon?: number;
 
 }
 
@@ -42,17 +41,15 @@ export class ProjectModel extends BaseModel<ProjectJson> {
   private _commRound: number;
   private _roles: string[];
   private _createdAt: Date;
-
   private _center: boolean;
   private _scaleVariance: boolean;
   private _log2: boolean;
-  private _federated_qr: boolean;
-  private _send_final_result: boolean;
-  private _current_iteration: number;
+  private _federatedQr: boolean;
+  private _sendFinalResult: boolean;
+  private _currentIteration: number;
   private _epsilon: number;
   private _maxDimensions: number;
   private _maxIterations: number;
-
 
   constructor() {
     super();
@@ -69,13 +66,12 @@ export class ProjectModel extends BaseModel<ProjectJson> {
     this._commRound = proj.comm_round;
     this._roles = proj.roles;
     this._createdAt = new Date(proj.created_at);
-
     this._center = proj.center;
     this._scaleVariance = proj.scale_variance;
     this._log2 = proj.log2;
-    this._federated_qr = proj.federated_qr;
-    this._send_final_result = proj.send_final_result;
-    this._current_iteration = proj.current_iteration;
+    this._federatedQr = proj.federated_qr;
+    this._sendFinalResult = proj.send_final_result;
+    this._currentIteration = proj.current_iteration;
     this._maxDimensions = proj.max_dimensions;
     this._maxIterations = proj.max_iterations;
     this._epsilon = proj.epsilon;
@@ -121,7 +117,7 @@ export class ProjectModel extends BaseModel<ProjectJson> {
     return this._center;
   }
 
-  public get scale_variance(): boolean {
+  public get scaleVariance(): boolean {
     return this._scaleVariance;
   }
 
@@ -129,18 +125,18 @@ export class ProjectModel extends BaseModel<ProjectJson> {
     return this._log2;
   }
 
-  public get federated_qr(): boolean {
-    return this._federated_qr;
+  public get federatedQr(): boolean {
+    return this._federatedQr;
   }
-  public get current_iteration(): number {
-    return this._current_iteration;
-  }
-
-  public get send_final_result(): boolean {
-    return this._send_final_result;
+  public get currentIteration(): number {
+    return this._currentIteration;
   }
 
-  public get dimensions(): number {
+  public get sendFinalResult(): boolean {
+    return this._sendFinalResult;
+  }
+
+  public get maxDimensions(): number {
     return this._maxDimensions;
   }
 

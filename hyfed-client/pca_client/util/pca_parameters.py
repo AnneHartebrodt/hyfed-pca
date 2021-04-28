@@ -18,15 +18,15 @@
 
 
 class PcaProjectParameter:
-    EPSILON = "EPSILON"
-    SEND_FINAL_RESULT = "SEND_FINAL_RESULT"
-    MAX_ITERATIONS = "MAX_ITERATIONS"
-    MAX_DIMENSIONS = "MAX_DIMENSIONS"
-    CENTER = "CENTER"
-    SCALE_VARIANCE = "SCALE_VARIANCE"
-    LOG2 = "LOG2"
-    FEDERATED_QR = "FEDERATED_QR"
-
+    EPSILON = "epsilon"
+    SEND_FINAL_RESULT = "send_final_result"
+    MAX_ITERATIONS = "max_iterations"
+    MAX_DIMENSIONS = "max_dimensions"
+    CENTER = "center"
+    SCALE_VARIANCE = "scale_variance"
+    LOG2 = "log2"
+    FEDERATED_QR = "federated_qr"
+    CURRENT_ITERATION = "current_iteration"
 
 class PcaLocalParameter:
     pass

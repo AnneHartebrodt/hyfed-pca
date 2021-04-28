@@ -206,7 +206,6 @@ class ProjectInfoView(APIView):
             # get tool name
             token_instance = TokenModel.objects.get(id=token)
             tool = token_instance.project.tool
-
             # get derived project model instance
             derived_instance = project_model[tool].objects.get(id=project_id)
 
@@ -432,7 +431,6 @@ class ProjectViewSet(viewsets.ModelViewSet):
             # ######## create the project
             # extract the tool name from the webapp request
             tool = request.data[HyFedProjectParameter.TOOL]
-
             # create the project and save the corresponding model instance in the database
             derived_project = server_project[tool](request, project_model[tool])
 
@@ -441,12 +439,14 @@ class ProjectViewSet(viewsets.ModelViewSet):
 
             # ######### serialize the project
             data = request.data
+            logger.info(data)
             context = {'request': request}
 
             # retrieve and serialize derived project model instance
             derived_model_instance = project_model[tool].objects.get(id=derived_project.get_project_id())
             derived_model_serialized = project_serializer[tool](data=data, context=context).to_representation(derived_model_instance)
 
+            logger.info(derived_model_serialized)
             return Response(derived_model_serialized)
 
         except Exception as creation_exp:
@@ -467,7 +467,6 @@ class ProjectViewSet(viewsets.ModelViewSet):
 
                 # set serializer to the derived serializer class
                 ProjectViewSet.serializer_class = project_serializer[tool]
-
                 return project_model[tool].objects.filter(Q(coordinator=self.request.user) |
                                                           Q(participants__participant=self.request.user)).distinct()
             else:

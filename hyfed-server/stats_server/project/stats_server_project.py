@@ -44,6 +44,7 @@ class StatsServerProject(HyFedServerProject):
             # save project (hyper-)parameters in the project model and initialize the project
             stats_model_instance = project_model.objects.get(id=self.project_id)
 
+
             # features
             features = creation_request.data[StatsProjectParameter.FEATURES]
             stats_model_instance.features = features
