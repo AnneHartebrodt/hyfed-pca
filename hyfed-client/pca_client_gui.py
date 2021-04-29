@@ -120,6 +120,9 @@ class PcaClientGUI:
         federated_qr = project_parameters[PcaProjectParameter.FEDERATED_QR]
 
         pca_dataset_file_path = self.pca_dataset_widget.get_dataset_file_path()
+        has_rownames = self.pca_dataset_widget.get_has_rownames()
+        has_column_names = self.pca_dataset_widget.get_has_column_names()
+        field_delimiter = self.pca_dataset_widget.get_field_delimiter()
 
 
         # create Pca client project
@@ -140,7 +143,10 @@ class PcaClientGUI:
                                               scale_variance=scale_variance,
                                               log2=log2,
                                               federated_qr=federated_qr,
-                                              send_final_result = send_final_result
+                                              send_final_result = send_final_result,
+                                              has_rownames = has_rownames,
+                                              has_column_names=has_column_names,
+                                              field_delimiter = field_delimiter
                                               )
 
         # run Pca client project as a thread

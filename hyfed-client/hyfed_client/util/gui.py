@@ -60,6 +60,45 @@ def add_label_and_textbox(widget, label_text, label_font=('times', 11), padx=10,
 
     return text_entry
 
+def add_label_and_checkbox(widget, label_text, variable, label_font=('times', 11), padx=10, pady=10, sticky="",
+                          name="", status="normal", increment_row_number=True):
+    """ Create a label in the left side and a checkbox in right side of a row """
+
+    label = tk.Label(widget, text=label_text)
+    label.config(font=label_font)
+    label.grid(row=widget.row_number, column=0, padx=padx, pady=pady, sticky=sticky)
+
+
+    button_entry = tk.Checkbutton(widget, variable=variable, onvalue=True)
+
+    button_entry.config(font=label_font)
+    button_entry.grid(row=widget.row_number, column=1, padx=padx, pady=pady, sticky=sticky)
+
+    if increment_row_number:
+        widget.row_number += 1
+
+    return button_entry
+
+def radio_button(widget, variable, label_text, label_font=('times', 11), padx=3, pady=3, sticky="",
+                 label="", value="", increment_row_number=False, column=1,
+                        print_label_text=True):
+    if print_label_text:
+        label = tk.Label(widget, text=label_text)
+        label.config(font=label_font)
+        label.grid(row=widget.row_number, column=0, padx=padx, pady=pady, sticky=sticky)
+
+    radio_entry = tk.Radiobutton(widget, text=label, variable=variable, value=value).grid(
+        row=widget.row_number, column=column, padx=padx, pady=pady)
+
+    if increment_row_number:
+        widget.row_number += 1
+
+    return radio_entry
+
+
+
+
+
 
 def add_label_and_password_box(widget, label_text, label_font=('times', 11), padx=10, pady=10, sticky=""):
     """ Create a label in the left side and a password box in the right side of a row """
@@ -141,3 +180,4 @@ def create_log_widget(title, textbox_height=20, textbox_width=100, scrollbar_wid
     log_scrollbar.grid(row=0, column=1, sticky=tk.N + tk.S)
 
     return log_widget, log_textbox
+

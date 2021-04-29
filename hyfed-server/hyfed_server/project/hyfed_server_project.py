@@ -202,7 +202,7 @@ class HyFedServerProject:
     # ########## pre|post aggregation functions
     def pre_aggregate(self):
         """
-            Performs pre-aggregation operations such as checking the client operation and synchronization status;
+            Performs pre-aggregation operations such as checking the client operation and synchronization status
             MUST be called at the beginning of the aggregate function in all derived classes.
         """""
 

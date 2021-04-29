@@ -195,4 +195,4 @@ class ProjectStatusWidget(tk.Tk):
         log_file_path = filedialog.asksaveasfilename(defaultextension=".log")
         if log_file_path is None:
             return
-        self.project.save_log(file_path=log_file_path)
+        self.project.save_log()
