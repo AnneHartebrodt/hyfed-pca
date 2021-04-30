@@ -27,6 +27,7 @@ class PcaProjectParameter:
     LOG2 = "log2"
     FEDERATED_QR = "federated_qr"
     CURRENT_ITERATION = "current_iteration"
+    SPEEDUP = 'speedup'
 
 
 class PcaLocalParameter:

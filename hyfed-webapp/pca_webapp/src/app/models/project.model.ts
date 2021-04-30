@@ -27,7 +27,7 @@ export interface ProjectJson extends IModelJson {
   max_iterations?: number;
   max_dimensions?: number;
   epsilon?: number;
-
+  speedup?: boolean;
 }
 
 export class ProjectModel extends BaseModel<ProjectJson> {
@@ -50,6 +50,7 @@ export class ProjectModel extends BaseModel<ProjectJson> {
   private _epsilon: number;
   private _maxDimensions: number;
   private _maxIterations: number;
+  private _speedup: boolean;
 
   constructor() {
     super();
@@ -75,6 +76,7 @@ export class ProjectModel extends BaseModel<ProjectJson> {
     this._maxDimensions = proj.max_dimensions;
     this._maxIterations = proj.max_iterations;
     this._epsilon = proj.epsilon;
+    this._speedup = proj.speedup;
   }
 
   public get tool(): ToolType {
@@ -146,6 +148,10 @@ export class ProjectModel extends BaseModel<ProjectJson> {
 
   public get epsilon(): number {
     return this._epsilon;
+  }
+
+  public get speedup(): boolean {
+    return this._speedup;
   }
 
 }

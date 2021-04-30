@@ -118,6 +118,7 @@ class PcaClientGUI:
         log2 = project_parameters[PcaProjectParameter.LOG2]
         send_final_result = project_parameters[PcaProjectParameter.SEND_FINAL_RESULT]
         federated_qr = project_parameters[PcaProjectParameter.FEDERATED_QR]
+        speedup = project_parameters[PcaProjectParameter.SPEEDUP]
 
         pca_dataset_file_path = self.pca_dataset_widget.get_dataset_file_path()
         has_rownames = self.pca_dataset_widget.get_has_rownames()
@@ -144,6 +145,7 @@ class PcaClientGUI:
                                               log2=log2,
                                               federated_qr=federated_qr,
                                               send_final_result = send_final_result,
+                                              speedup = speedup,
                                               has_rownames = has_rownames,
                                               has_column_names=has_column_names,
                                               field_delimiter = field_delimiter

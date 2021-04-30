@@ -34,4 +34,5 @@ class PcaProjectModel(HyFedProjectModel):
     send_final_result = models.BooleanField(default=False)
     current_iteration = models.PositiveIntegerField(default=1)
     epsilon = models.FloatField(default=1e-9)
+    speedup = models.BooleanField(default=True)
 

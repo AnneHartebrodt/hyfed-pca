@@ -84,12 +84,40 @@
                  </div>
              </div>
 
-          <label class="label" for="send_final_result" *ngIf="newProject.algorithm === 'VERTICAL_POWER_ITERATION'|| newProject.algorithm === 'HORIZONTAL_POWER_ITERATION'|| newProject.algorithm === 'VERTICAL_SEQUENTIAL_ITERATION'">Send final results to other clients</label>
+<!--          <label class="label" for="send_final_result" *ngIf="newProject.algorithm === 'VERTICAL_POWER_ITERATION'|| newProject.algorithm === 'HORIZONTAL_POWER_ITERATION'|| newProject.algorithm === 'VERTICAL_SEQUENTIAL_ITERATION'">Send final results to other clients</label>-->
+<!--            <div class="field is-vertical" *ngIf="newProject.algorithm === 'VERTICAL_POWER_ITERATION'|| newProject.algorithm === 'HORIZONTAL_POWER_ITERATION'|| newProject.algorithm === 'VERTICAL_SEQUENTIAL_ITERATION'">-->
+<!--              <div class="field-body">-->
+<!--                <div class="field is-narrow">-->
+<!--                  <input [(ngModel)]="newProject.send_final_result" type="checkbox" id="send_final_result" name="send_final_result" title="send_final_result" value="send_final_result">-->
+<!--                  <label for="send_final_result"> Send final result </label><br>-->
+<!--                </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+          <label class="label" for="center" *ngIf="newProject.algorithm === 'VERTICAL_POWER_ITERATION'|| newProject.algorithm === 'HORIZONTAL_POWER_ITERATION'|| newProject.algorithm === 'VERTICAL_SEQUENTIAL_ITERATION'">Data preprocessing </label>
             <div class="field is-vertical" *ngIf="newProject.algorithm === 'VERTICAL_POWER_ITERATION'|| newProject.algorithm === 'HORIZONTAL_POWER_ITERATION'|| newProject.algorithm === 'VERTICAL_SEQUENTIAL_ITERATION'">
               <div class="field-body">
                 <div class="field is-narrow">
-                  <input [(ngModel)]="newProject.send_final_result" type="checkbox" id="send_final_result" name="send_final_result" title="send_final_result" value="send_final_result">
-                  <label for="send_final_result"> Send final result </label><br>
+                  <input [(ngModel)]="newProject.center" type="checkbox" id="center" name="center" title="center" value="center">
+                  <label for="center"> Center (Recommended) </label><br>
+                </div>
+                </div>
+            </div>
+
+            <div class="field is-vertical" *ngIf="newProject.algorithm === 'VERTICAL_POWER_ITERATION'|| newProject.algorithm === 'HORIZONTAL_POWER_ITERATION'|| newProject.algorithm === 'VERTICAL_SEQUENTIAL_ITERATION'">
+              <div class="field-body">
+                <div class="field is-narrow">
+                  <input [(ngModel)]="newProject.scale_variance" type="checkbox" id="scale" name="scale" title="scale" value="scale">
+                  <label for="scale"> Scale </label><br>
+                </div>
+                </div>
+            </div>
+
+          <div class="field is-vertical" *ngIf="newProject.algorithm === 'VERTICAL_POWER_ITERATION'|| newProject.algorithm === 'HORIZONTAL_POWER_ITERATION'|| newProject.algorithm === 'VERTICAL_SEQUENTIAL_ITERATION'">
+              <div class="field-body">
+                <div class="field is-narrow">
+                  <input [(ngModel)]="newProject.speedup" type="checkbox" id="speedup" name="speedup" title="speedup" value="speedup">
+                  <label for="scale"> Speed up computation through partial computation </label><br>
                 </div>
                 </div>
             </div>

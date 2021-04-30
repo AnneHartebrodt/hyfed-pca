@@ -35,7 +35,7 @@ class PcaClientProject(HyFedClientProject):
     def __init__(self, username, token, project_id, server_url,
                  algorithm, name, description, coordinator, result_dir, log_dir,
                  pca_datasets_file_path, max_iterations, max_dimensions, center,
-                 scale_variance, log2, federated_qr, send_final_result, has_rownames,
+                 scale_variance, log2, federated_qr, send_final_result, speedup, has_rownames,
                  has_column_names, field_delimiter):
 
         super().__init__(username=username, token=token, project_id=project_id, server_url=server_url,
@@ -50,6 +50,7 @@ class PcaClientProject(HyFedClientProject):
         self.log2 = log2
         self.federated_qr = federated_qr
         self.send_final_result = send_final_result
+        self.speedup = speedup
 
         #local settings
         self.pca_dataset_file_path = pca_datasets_file_path
@@ -436,6 +437,25 @@ class PcaClientProject(HyFedClientProject):
             self.log(f"\t{exception}\n")
             self.project_failed()
 
+    def update_H(self):
+        try:
+            deltas = self.global_parameters[PcaGlobalParameter.DELTAS]
+            self.log('Convergence values' + str(deltas))
+            H_i = self.global_parameters[PcaGlobalParameter.HI_MATRIX]
+            G_i = self.get_g_matrix()
+
+            G_i_updated = np.dot(self.data.T, H_i) + G_i
+            H_i_updated = np.dot(self.data, G_i_updated)
+            # self.local_parameters is the object that is sent to the server
+            self.log('DTxH' + str(G_i_updated.shape))
+            self.g_matrix = G_i_updated
+            self.h_matrix = H_i
+            self.local_parameters[PcaLocalParameter.HI_MATRIX] = H_i_updated
+
+        except Exception as exception:
+            self.log(f"\t{exception}\n")
+            self.project_failed()
+
     def calculate_local_vector_conorms(self):
         try:
             g = self.g_matrix
@@ -545,7 +565,7 @@ class PcaClientProject(HyFedClientProject):
 
             pd.DataFrame(self.get_row_names()).to_csv(
                 self.pca_dataset_file_path + '_' + str(self.project_id) + '.row_names')
-            pd.DataFrame(self.get_hi_matrix()).to_csv(self.pca_dataset_file_path + '_' + str(self.project_id) + '.h')
+            pd.DataFrame(self.get_h_matrix()).to_csv(self.pca_dataset_file_path + '_' + str(self.project_id) + '.h')
 
             self.local_parameters[PcaLocalParameter.GI_MATRIX] = self.get_g_matrix()
 

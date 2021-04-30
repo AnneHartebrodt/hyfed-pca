@@ -32,6 +32,7 @@ class PcaProjectSerializer(HyFedProjectSerializer):
     send_final_result = serializers.SerializerMethodField()
     current_iteration = serializers.SerializerMethodField()
     epsilon = serializers.SerializerMethodField()
+    speedup = serializers.SerializerMethodField()
 
     def get_max_iterations(self, instance):
         return instance.max_iterations
@@ -60,7 +61,10 @@ class PcaProjectSerializer(HyFedProjectSerializer):
     def get_epsilon(self, instance):
         return instance.epsilon
 
+    def get_speedup(self, instance):
+        return instance.speedup
+
     class Meta(HyFedProjectSerializer.Meta):
         fields = HyFedProjectSerializer.Meta.fields + ('max_iterations', 'max_dimensions', 'center',
                                                        'scale_variance', 'log2', 'federated_qr', 'send_final_result',
-                                                       'current_iteration', 'epsilon',)
+                                                       'current_iteration', 'epsilon','speedup',)

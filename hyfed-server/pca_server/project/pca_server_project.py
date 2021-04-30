@@ -20,7 +20,7 @@ from hyfed_server.project.hyfed_server_project import HyFedServerProject
 from hyfed_server.util.hyfed_steps import HyFedProjectStep
 from hyfed_server.util.status import ProjectStatus
 from hyfed_server.util.utils import client_parameters_to_list
-
+from pca_server.model.pca_model import PcaProjectModel
 from pca_server.util.pca_steps import PcaProjectStep
 from pca_server.util.pca_parameters import PcaGlobalParameter, PcaLocalParameter,\
     PcaProjectParameter
@@ -80,6 +80,10 @@ class PcaServerProject(HyFedServerProject):
             pca_model_instance.epsilon = epsilon
             self.epsilon = epsilon
 
+            speedup = bool(creation_request.data[PcaProjectParameter.SPEEDUP])
+            pca_model_instance.speedup = speedup
+            self.speedup = speedup
+
             self.current_iteration = 1
             pca_model_instance.current_iteration = 1
 
@@ -90,9 +94,6 @@ class PcaServerProject(HyFedServerProject):
 
             pca_model_instance.save()
 
-            self.current_iteration = 1
-            pca_model_instance.current_iteration = 1
-
             # init some other global attributes
             self.row_count = -1
             self.column_count = -1
@@ -100,6 +101,7 @@ class PcaServerProject(HyFedServerProject):
             self.current_vector_index = 0
             self.orthonormalisation_done = False
             self.deltas = []
+
 
             logger.info(f"Project {self.project_id}: PCA specific attributes initialized!")
 
@@ -167,7 +169,7 @@ class PcaServerProject(HyFedServerProject):
 
         logger.info(f'Project {self.project_id}: ############## aggregate ####### ')
         logger.info(f'Project {self.project_id}: #### step {self.step}')
-        logger.info(f'Project {self.project_id}: #### step {self.local_parameters}')
+        #logger.info(f'Project {self.project_id}: #### step {self.local_parameters}')
 
         if self.step == HyFedProjectStep.INIT:  # The first step name MUST always be HyFedPcaProjectStep.INIT
             self.init_step()
@@ -196,7 +198,8 @@ class PcaServerProject(HyFedServerProject):
         elif self.step == PcaProjectStep.COMPUTE_H_AND_POOL or \
                 self.step == PcaProjectStep.CENTER_AND_SCALE_DATA:
             self.H_aggregation()
-            if self.current_iteration % 10 == 0:
+            # periodical orthonormalisation
+            if self.current_iteration == 1 and (self.current_iteration % 10 == 0) or not self.speedup:
                 if self.federated_qr:
                     self.set_step(PcaProjectStep.ORTHONORMALISE_EIGENVECTOR_NORM)
                 else:
@@ -214,6 +217,10 @@ class PcaServerProject(HyFedServerProject):
                 self.set_step(PcaProjectStep.ORTHONORMALISE_EIGENVECTOR_NORM)
             else:
                 self.set_step(PcaProjectStep.COMPUTE_H_NOT_G)
+
+            self.global_parameters[PcaGlobalParameter.HI_MATRIX] = self.get_global_h_matrix()
+            self.global_parameters[PcaGlobalParameter.CURRENT_VECTOR_INDEX] = self.get_current_vector_index()
+            self.global_parameters[PcaGlobalParameter.DELTAS] = self.deltas
 
 
         elif self.step == PcaProjectStep.ORTHONORMALISE_CONORMS:
@@ -399,7 +406,12 @@ class PcaServerProject(HyFedServerProject):
             if self.current_iteration == self.max_iterations\
                     or self.eigenvector_convergence_checker(global_HI_matrix, self.global_h_matrix, self.epsilon):
                 self.converged = True
-                logger.info('converged' + str(self.converged))
+                # Once convergence was reached once, use exact version.
+                self.speedup = False
+                logger.info('CONVERGED!!!' + str(self.converged))
+            else:
+                # This needs to be added to account for possible convergence of H before G
+                self.converged = False
 
             self.global_h_matrix = global_HI_matrix
             logger.info(self.global_h_matrix.shape)
@@ -548,3 +560,21 @@ class PcaServerProject(HyFedServerProject):
     def get_project_step(self):
         return self.project_step
 
+    def update_project_model(self):
+        """
+            Update status, step, and comm_round of the project model
+        """
+
+        try:
+            project_instance = PcaProjectModel.objects.get(id=self.project_id)
+            project_instance.status = self.status
+            project_instance.step = self.step
+            project_instance.comm_round = self.comm_round
+            project_instance.iteration_counter = self.current_iteration
+            project_instance.save()
+
+            logger.debug(f'Project {self.project_id}: HyFedProject model updated!')
+
+        except Exception as model_exception:
+            logger.error(f'Project {self.project_id}: {model_exception}')
+            self.project_failed()
