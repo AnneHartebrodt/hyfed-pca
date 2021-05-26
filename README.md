@@ -5,7 +5,7 @@
 <p float="left">
 <img src="hyfed-docs/readme/img/main/hyfed_logo.png" width="180" height="60">
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="hyfed-docs/readme/img/main/tum_logo.png" width="100" height="50">
+<!-- <img src="hyfed-docs/readme/img/main/tum_logo.png" width="100" height="50"> -->
 </p>
 
 ## About
@@ -35,7 +35,7 @@ To learn more about **HyFed**, please read the [HyFed manuscript](https://arxiv.
 The **HyFed** source code is licensed under the Apache License Version 2.0. (C) 2021, the **HyFed** developers.
 
 ## Acknowledgement
-This software is based on the **HyFed** framework developed at [TUM-AIMED](TUM-AIMED/hyfed)
+This software is based on the **HyFed** framework developed at [TUM-AIMED](https://github.com/TUM-AIMED/hyfed)
 ## Contact
 In case of questions or problems regarding **Federated PCA**, please contact the  developers: Anne Hartebrodt
    
