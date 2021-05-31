@@ -1,0 +1,47 @@
+version: '2.2'
+services:
+  web:
+    build: hyfed-webapp/pca_webapp
+    restart: always
+    ports:
+      - 3849:80
+  server:
+    build: hyfed-server/
+    restart: always
+    mem_limit: 32000m
+    cpus: 8.0
+    ports:
+      - 3850:8000
+    env_file:
+      - 'docker-django.env'
+    networks:
+      - db_net
+    depends_on:
+      - db
+    volumes:
+      - ./pca-server/pca_server/result:/usr/src/fed_pca/pca_server/result
+  db:
+    image: postgres:11.2-alpine
+    restart: always
+    hostname: db
+    ports:
+      - 9432:5432
+    networks:
+      - db_net
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=fed_user
+      - POSTGRES_PASSWORD=db_password
+      - POSTGRES_DB=fed_gwas
+    command:
+      - "postgres"
+      - "-c"
+      - "max_connections=10000"
+      - "-c"
+      - "shared_buffers=2GB"
+networks:
+  db_net:
+
+volumes:
+  postgres_data:

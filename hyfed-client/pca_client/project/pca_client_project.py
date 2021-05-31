@@ -32,13 +32,14 @@ class PcaClientProject(HyFedClientProject):
         A class that provides the computation functions to compute local parameters
     """
 
-    def __init__(self, username, token, project_id, server_url,
-                 algorithm, name, description, coordinator, result_dir, log_dir,
+    def __init__(self, username, token, project_id, server_url, compensator_url,
+                 tool, algorithm, name, description, coordinator, result_dir, log_dir,
                  pca_datasets_file_path, max_iterations, max_dimensions, center,
                  scale_variance, log2, federated_qr, send_final_result, speedup, has_rownames,
                  has_column_names, field_delimiter):
 
         super().__init__(username=username, token=token, project_id=project_id, server_url=server_url,
+                         compensator_url=compensator_url, tool=tool,
                          algorithm=algorithm, name=name, description=description, coordinator=coordinator,
                          result_dir=result_dir, log_dir=log_dir)
 
@@ -412,6 +413,8 @@ class PcaClientProject(HyFedClientProject):
             H_i = np.dot(self.data, Gi)
 
             # self.local_parameters is the object that is sent to the server
+            if self.use_smpc:
+                self.set_compensator_flag()
             self.local_parameters[PcaLocalParameter.HI_MATRIX] = H_i
 
         except Exception as exception:
@@ -431,6 +434,8 @@ class PcaClientProject(HyFedClientProject):
             self.log('DTxH' + str(G_i_updated.shape))
             self.g_matrix = G_i_updated
             self.h_matrix = H_i
+            if self.use_smpc:
+                self.set_compensator_flag()
             self.local_parameters[PcaLocalParameter.GI_MATRIX]  = G_i_updated
 
         except Exception as exception:
@@ -450,6 +455,8 @@ class PcaClientProject(HyFedClientProject):
             self.log('DTxH' + str(G_i_updated.shape))
             self.g_matrix = G_i_updated
             self.h_matrix = H_i
+            if self.use_smpc:
+                self.set_compensator_flag()
             self.local_parameters[PcaLocalParameter.HI_MATRIX] = H_i_updated
 
         except Exception as exception:
@@ -471,7 +478,8 @@ class PcaClientProject(HyFedClientProject):
             self.log('Local conorms' + str(self.local_vector_conorms))
             if self.current_vector_index == self.k - 1:
                 self.orthonormalisation_done = True
-
+            if self.use_smpc:
+                self.set_compensator_flag()
             self.local_parameters[PcaLocalParameter.LOCAL_CONORMS]= self.get_local_vector_conorms()
 
 
@@ -510,7 +518,8 @@ class PcaClientProject(HyFedClientProject):
                                       self.get_g_matrix()[:, self.current_vector_index])
             self.local_eigenvector_norm = eigenvector_norm
             self.current_vector_index = self.current_vector_index + 1
-
+            if self.use_smpc:
+                self.set_compensator_flag()
             self.local_parameters[PcaLocalParameter.LOCAL_EIGENVECTOR_NORM] = self.local_eigenvector_norm
 
 

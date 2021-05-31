@@ -94,8 +94,8 @@
 <!--                </div>-->
 <!--            </div>-->
 
-          <label class="label" for="center" *ngIf="newProject.algorithm === 'VERTICAL_POWER_ITERATION'|| newProject.algorithm === 'HORIZONTAL_POWER_ITERATION'|| newProject.algorithm === 'VERTICAL_SEQUENTIAL_ITERATION'">Data preprocessing </label>
-            <div class="field is-vertical" *ngIf="newProject.algorithm === 'VERTICAL_POWER_ITERATION'|| newProject.algorithm === 'HORIZONTAL_POWER_ITERATION'|| newProject.algorithm === 'VERTICAL_SEQUENTIAL_ITERATION'">
+          <label class="label" for="center" *ngIf="newProject.algorithm === 'VERTICAL_POWER_ITERATION'">Data preprocessing </label>
+            <div class="field is-vertical" *ngIf="newProject.algorithm === 'VERTICAL_POWER_ITERATION'">
               <div class="field-body">
                 <div class="field is-narrow">
                   <input [(ngModel)]="newProject.center" type="checkbox" id="center" name="center" title="center" value="center">
@@ -104,7 +104,7 @@
                 </div>
             </div>
 
-            <div class="field is-vertical" *ngIf="newProject.algorithm === 'VERTICAL_POWER_ITERATION'|| newProject.algorithm === 'HORIZONTAL_POWER_ITERATION'|| newProject.algorithm === 'VERTICAL_SEQUENTIAL_ITERATION'">
+            <div class="field is-vertical" *ngIf="newProject.algorithm === 'VERTICAL_POWER_ITERATION'">
               <div class="field-body">
                 <div class="field is-narrow">
                   <input [(ngModel)]="newProject.scale_variance" type="checkbox" id="scale" name="scale" title="scale" value="scale">
@@ -113,11 +113,11 @@
                 </div>
             </div>
 
-          <div class="field is-vertical" *ngIf="newProject.algorithm === 'VERTICAL_POWER_ITERATION'|| newProject.algorithm === 'HORIZONTAL_POWER_ITERATION'|| newProject.algorithm === 'VERTICAL_SEQUENTIAL_ITERATION'">
+          <div class="field is-vertical" *ngIf="newProject.algorithm === 'VERTICAL_POWER_ITERATION'">
               <div class="field-body">
                 <div class="field is-narrow">
                   <input [(ngModel)]="newProject.speedup" type="checkbox" id="speedup" name="speedup" title="speedup" value="speedup">
-                  <label for="scale"> Speed up computation through partial computation </label><br>
+                  <label for="speedup"> Speed up computation through sporadic orthonormalisation </label><br>
                 </div>
                 </div>
             </div>

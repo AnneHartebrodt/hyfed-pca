@@ -18,7 +18,7 @@
 """
 
 from hyfed_client.widget.join_widget import JoinWidget
-from hyfed_client.widget.project_status_widget import ProjectStatusWidget
+from hyfed_client.widget.hyfed_project_status_widget import HyFedProjectStatusWidget
 from hyfed_client.util.hyfed_parameters import HyFedProjectParameter, ConnectionParameter, AuthenticationParameter
 
 from pca_client.widget.pca_project_info_widget import PcaProjectInfoWidget
@@ -42,7 +42,12 @@ class PcaClientGUI:
                                       local_server_name="Localhost",
                                       external_server_name="Pca-Server",
                                       local_server_url="http://localhost:8000",
-                                      external_server_url="https://pca_server_url")
+                                      external_server_url="https://federated.compbio.sdu.dk",
+                                      local_compensator_name="Localhost",
+                                      local_compensator_url="http://localhost:8001",
+                                      external_compensator_name="TUM-Compensator",
+                                      external_compensator_url="https://exbio.wzw.tum.de/hyfed-compensator/"
+                                      )
 
         # show the join widget
         self.join_widget.show()
@@ -100,10 +105,12 @@ class PcaClientGUI:
         project_parameters = self.pca_project_info_widget.get_project_parameters()
 
         server_url = connection_parameters[ConnectionParameter.SERVER_URL]
+        compensator_url = connection_parameters[ConnectionParameter.COMPENSATOR_URL]
         username = authentication_parameters[AuthenticationParameter.USERNAME]
         token = authentication_parameters[AuthenticationParameter.TOKEN]
         project_id = authentication_parameters[AuthenticationParameter.PROJECT_ID]
 
+        tool = project_parameters[HyFedProjectParameter.TOOL]
         algorithm = project_parameters[HyFedProjectParameter.ALGORITHM]
         project_name = project_parameters[HyFedProjectParameter.NAME]
         project_description = project_parameters[HyFedProjectParameter.DESCRIPTION]
@@ -129,7 +136,9 @@ class PcaClientGUI:
         # create Pca client project
         pca_client_project = PcaClientProject(username=username,
                                                      token=token,
+                                                    tool = tool,
                                                      server_url=server_url,
+                                              compensator_url=compensator_url,
                                                      project_id=project_id,
                                                      algorithm=algorithm,
                                                      name=project_name,
@@ -157,7 +166,7 @@ class PcaClientGUI:
         pca_project_thread.start()
 
         # create and show Pca project status widget
-        pca_project_status_widget = ProjectStatusWidget(title="Pca Project Status",
+        pca_project_status_widget = HyFedProjectStatusWidget(title="Pca Project Status",
                                                             project=pca_client_project)
         pca_project_status_widget.add_log_and_quit_buttons()
         pca_project_status_widget.show()

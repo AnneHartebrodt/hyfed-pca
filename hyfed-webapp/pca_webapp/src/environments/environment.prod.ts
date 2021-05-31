@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://pca_server_url/',
-  cookieDomain: 'pca_server_url',
+  apiUrl: 'https://federated.compbio.sdu.dk/',
+  cookieDomain: 'federated.compbio.sdu.dk',
 };
 

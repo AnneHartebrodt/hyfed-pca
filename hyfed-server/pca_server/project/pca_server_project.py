@@ -560,21 +560,21 @@ class PcaServerProject(HyFedServerProject):
     def get_project_step(self):
         return self.project_step
 
-    def update_project_model(self):
-        """
-            Update status, step, and comm_round of the project model
-        """
-
-        try:
-            project_instance = PcaProjectModel.objects.get(id=self.project_id)
-            project_instance.status = self.status
-            project_instance.step = self.step
-            project_instance.comm_round = self.comm_round
-            project_instance.iteration_counter = self.current_iteration
-            project_instance.save()
-
-            logger.debug(f'Project {self.project_id}: HyFedProject model updated!')
-
-        except Exception as model_exception:
-            logger.error(f'Project {self.project_id}: {model_exception}')
-            self.project_failed()
+    # def update_project_model(self):
+    #     """
+    #         Update status, step, and comm_round of the project model
+    #     """
+    #
+    #     try:
+    #         project_instance = PcaProjectModel.objects.get(id=self.project_id)
+    #         project_instance.status = self.status
+    #         project_instance.step = self.step
+    #         project_instance.comm_round = self.comm_round
+    #         project_instance.current_iteration = self.current_iteration
+    #         project_instance.save()
+    #
+    #         logger.debug(f'Project {self.project_id}: HyFedProject model updated!')
+    #
+    #     except Exception as model_exception:
+    #         logger.error(f'Project {self.project_id}: {model_exception}')
+    #         self.project_failed()

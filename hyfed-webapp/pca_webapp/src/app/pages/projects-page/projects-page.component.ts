@@ -24,6 +24,7 @@ export class ProjectsPageComponent implements OnInit {
     federated_qr: true,
     max_dimensions: 10,
     send_final_result: false,
+    speedup: false,
   };
 
   constructor(private router: Router, private projectService: ProjectService) {
