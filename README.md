@@ -1,11 +1,11 @@
-# HyFed
+# Federated Principal Component Analysis
 
-## __Hybrid Federated Framework for Privacy-preserving Machine Learning__
+## __Hybrid federated principal component analysis for Privacy-preserving Machine Learning__
 
 <p float="left">
 <img src="hyfed-docs/readme/img/main/hyfed_logo.png" width="180" height="60">
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="hyfed-docs/readme/img/main/tum_logo.png" width="100" height="50">
+<!-- <img src="hyfed-docs/readme/img/main/tum_logo.png" width="100" height="50"> -->
 </p>
 
 ## About
@@ -34,21 +34,11 @@ To learn more about **HyFed**, please read the [HyFed manuscript](https://arxiv.
 ## License
 The **HyFed** source code is licensed under the Apache License Version 2.0. (C) 2021, the **HyFed** developers.
 
-## Citation
-If you use the **HyFed** framework in your study, please cite it as follows: <br />
-   ```
-   @misc{nasirigerdeh2021hyfed,
-          title={HyFed: A Hybrid Federated Framework for Privacy-preserving Machine Learning},
-          author={Reza Nasirigerdeh and Reihaneh Torkzadehmahani and Julian Matschinske and Jan Baumbach and Daniel Rueckert and Georgios Kaissis},
-          year={2021},
-          eprint={2105.10545},
-          archivePrefix={arXiv},
-          primaryClass={cs.LG}
-   }
-   ```
+## Acknowledgement
+This software is based on the **HyFed** framework developed at [TUM-AIMED](https://github.com/TUM-AIMED/hyfed)
 ## Contact
-In case of questions or problems regarding **HyFed**, please contact the **HyFed** developers: Reza Nasirigerdeh, Reihaneh Torkzadehmahani, and Julian Matschinske.
-
+In case of questions or problems regarding **Federated PCA**, please contact the  developers: Anne Hartebrodt
+   
 ## Disclaimer
 
 This framework is a research product and is provided as it is. We assume no liability for any user action or omission.
