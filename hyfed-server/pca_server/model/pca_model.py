@@ -35,4 +35,5 @@ class PcaProjectModel(HyFedProjectModel):
     current_iteration = models.PositiveIntegerField(default=1)
     epsilon = models.FloatField(default=1e-9)
     speedup = models.BooleanField(default=True)
+    use_smpc = models.BooleanField(default=True)
 

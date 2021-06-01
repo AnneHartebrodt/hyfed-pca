@@ -28,6 +28,7 @@ export interface ProjectJson extends IModelJson {
   max_dimensions?: number;
   epsilon?: number;
   speedup?: boolean;
+  use_smpc?: boolean;
 
   // runtime stats related attributes (common among tools)
   client_computation?: number;
@@ -68,6 +69,7 @@ export class ProjectModel extends BaseModel<ProjectJson> {
   private _maxDimensions: number;
   private _maxIterations: number;
   private _speedup: boolean;
+  private _useSmpc: boolean;
   private _clientComputation: number;
   private _clientNetworkSend: number;
   private _clientNetworkReceive: number;
@@ -124,6 +126,7 @@ export class ProjectModel extends BaseModel<ProjectJson> {
     this._maxIterations = proj.max_iterations;
     this._epsilon = proj.epsilon;
     this._speedup = proj.speedup;
+    this._useSmpc = proj.use_smpc;
   }
 
   public get tool(): ToolType {
@@ -200,7 +203,12 @@ export class ProjectModel extends BaseModel<ProjectJson> {
   public get speedup(): boolean {
     return this._speedup;
   }
-    public get clientComputation(): number {
+
+  public get useSmpc(): boolean {
+    return this._useSmpc;
+  }
+
+  public get clientComputation(): number {
     return this._clientComputation;
   }
 

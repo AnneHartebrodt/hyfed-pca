@@ -36,7 +36,7 @@ class PcaClientProject(HyFedClientProject):
                  tool, algorithm, name, description, coordinator, result_dir, log_dir,
                  pca_datasets_file_path, max_iterations, max_dimensions, center,
                  scale_variance, log2, federated_qr, send_final_result, speedup, has_rownames,
-                 has_column_names, field_delimiter):
+                 has_column_names, field_delimiter, use_smpc):
 
         super().__init__(username=username, token=token, project_id=project_id, server_url=server_url,
                          compensator_url=compensator_url, tool=tool,
@@ -52,6 +52,7 @@ class PcaClientProject(HyFedClientProject):
         self.federated_qr = federated_qr
         self.send_final_result = send_final_result
         self.speedup = speedup
+        self.use_smpc = use_smpc
 
         #local settings
         self.pca_dataset_file_path = pca_datasets_file_path
@@ -480,7 +481,7 @@ class PcaClientProject(HyFedClientProject):
                 self.orthonormalisation_done = True
             if self.use_smpc:
                 self.set_compensator_flag()
-            self.local_parameters[PcaLocalParameter.LOCAL_CONORMS]= self.get_local_vector_conorms()
+            self.local_parameters[PcaLocalParameter.LOCAL_CONORMS]= np.array(self.get_local_vector_conorms())
 
 
         except Exception as exception:
@@ -516,7 +517,7 @@ class PcaClientProject(HyFedClientProject):
             # at the aggregator
             eigenvector_norm = np.dot(self.get_g_matrix()[:, self.current_vector_index],
                                       self.get_g_matrix()[:, self.current_vector_index])
-            self.local_eigenvector_norm = eigenvector_norm
+            self.local_eigenvector_norm = float(eigenvector_norm)
             self.current_vector_index = self.current_vector_index + 1
             if self.use_smpc:
                 self.set_compensator_flag()

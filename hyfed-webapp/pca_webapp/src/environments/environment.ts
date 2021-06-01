@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: '//localhost:8000',
+  apiUrl: '//localhost:3850',
   cookieDomain: 'localhost',
 };
 

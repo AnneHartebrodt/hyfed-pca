@@ -122,6 +122,15 @@
                 </div>
             </div>
 
+          <div class="field is-vertical" *ngIf="newProject.algorithm === 'VERTICAL_POWER_ITERATION'">
+              <div class="field-body">
+                <div class="field is-narrow">
+                  <input [(ngModel)]="newProject.use_smpc" type="checkbox" id="use_smpc" name="use_smpc" title="use_smpc" value="use_smpc">
+                  <label for="use_smpc"> Use Secure Multiparty Computation (Recommended) </label><br>
+                </div>
+                </div>
+            </div>
+
           <!-- BEGIN Pca SPECIFIC DISABLE/ENABLE Create BUTTON -->
           <div class="field">
             <div class="control">

@@ -41,12 +41,12 @@ class PcaClientGUI:
         self.join_widget = JoinWidget(title="Pca Client",
                                       local_server_name="Localhost",
                                       external_server_name="Pca-Server",
-                                      local_server_url="http://localhost:8000",
-                                      external_server_url="https://federated.compbio.sdu.dk",
+                                      local_server_url="http://localhost:3850",
+                                      external_server_url="https://federated.compbio.sdu.dk/api",
                                       local_compensator_name="Localhost",
                                       local_compensator_url="http://localhost:8001",
                                       external_compensator_name="TUM-Compensator",
-                                      external_compensator_url="https://exbio.wzw.tum.de/hyfed-compensator/"
+                                      external_compensator_url="https://compensator.compbio.sdu.dk"
                                       )
 
         # show the join widget
@@ -126,6 +126,7 @@ class PcaClientGUI:
         send_final_result = project_parameters[PcaProjectParameter.SEND_FINAL_RESULT]
         federated_qr = project_parameters[PcaProjectParameter.FEDERATED_QR]
         speedup = project_parameters[PcaProjectParameter.SPEEDUP]
+        use_smpc = project_parameters[PcaProjectParameter.USE_SMPC]
 
         pca_dataset_file_path = self.pca_dataset_widget.get_dataset_file_path()
         has_rownames = self.pca_dataset_widget.get_has_rownames()
@@ -157,7 +158,8 @@ class PcaClientGUI:
                                               speedup = speedup,
                                               has_rownames = has_rownames,
                                               has_column_names=has_column_names,
-                                              field_delimiter = field_delimiter
+                                              field_delimiter = field_delimiter,
+                                              use_smpc = use_smpc
                                               )
 
         # run Pca client project as a thread
@@ -168,6 +170,9 @@ class PcaClientGUI:
         # create and show Pca project status widget
         pca_project_status_widget = HyFedProjectStatusWidget(title="Pca Project Status",
                                                             project=pca_client_project)
+        pca_project_status_widget.add_static_labels()
+        pca_project_status_widget.add_progress_labels()
+        pca_project_status_widget.add_status_labels()
         pca_project_status_widget.add_log_and_quit_buttons()
         pca_project_status_widget.show()
 

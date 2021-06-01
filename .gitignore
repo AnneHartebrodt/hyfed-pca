@@ -44,7 +44,7 @@ hyfed-server/db.sqlite3
 
 # test dataset
 test_data/
-
+testing/
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt

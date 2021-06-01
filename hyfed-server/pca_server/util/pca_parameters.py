@@ -28,6 +28,7 @@ class PcaProjectParameter:
     FEDERATED_QR = "federated_qr"
     CURRENT_ITERATION = "current_iteration"
     SPEEDUP = 'speedup'
+    USE_SMPC = 'use_smpc'
 
 
 class PcaLocalParameter:
