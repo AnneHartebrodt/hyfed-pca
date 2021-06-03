@@ -1,0 +1,10 @@
+export const environment = {
+  production: true,
+<<<<<<< HEAD
+  apiUrl: 'https://federated.compbio.sdu.dk',
+=======
+  apiUrl: 'https://federated.compbio.sdu.dk/api',
+>>>>>>> 409ff2f1a9f9c6d3827b0213225f9e88e90f0789
+  cookieDomain: 'federated.compbio.sdu.dk',
+};
+

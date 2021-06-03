@@ -25,6 +25,7 @@ export class ProjectsPageComponent implements OnInit {
     max_dimensions: 10,
     send_final_result: false,
     speedup: false,
+    use_smpc: false,
   };
 
   constructor(private router: Router, private projectService: ProjectService) {

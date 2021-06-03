@@ -46,7 +46,7 @@ class PcaClientGUI:
                                       local_compensator_name="Localhost",
                                       local_compensator_url="http://localhost:8001",
                                       external_compensator_name="TUM-Compensator",
-                                      external_compensator_url="https://compensator.compbio.sdu.dk"
+                                      external_compensator_url="https://exbio.wzw.tum.de/hyfed-compensator/"
                                       )
 
         # show the join widget

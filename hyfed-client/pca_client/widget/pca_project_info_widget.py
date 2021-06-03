@@ -56,6 +56,9 @@ class PcaProjectInfoWidget(HyFedProjectInfoWidget):
         add_label_and_textbox(self, label_test='Speedup',
                               value=self.project_parameters[PcaProjectParameter.SPEEDUP],
                               status='disabled')
+        add_label_and_textbox(self, label_test='SMPC',
+                              value=self.project_parameters[PcaProjectParameter.USE_SMPC],
+                              status='disabled')
 
     # Pca project specific info
     def add_pca_project_info(self):
