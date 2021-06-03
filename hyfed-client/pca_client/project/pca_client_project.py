@@ -82,7 +82,7 @@ class PcaClientProject(HyFedClientProject):
             # if center:
             #     self.set_step(PcaProjectStep.GLOBAL_MEAN_AND_VAR)
             # else:
-            #     self.set_step(PcaProjectStep.INIT_POWER_ITERATION)
+            #     self.set_step(PcaProjectStep.IIT_POWER_ITERATION)
 
         except Exception as io_exception:
             self.log(io_exception)

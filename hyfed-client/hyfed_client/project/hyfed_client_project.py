@@ -92,7 +92,9 @@ class HyFedClientProject:
         self.idle_timer = Timer('Idle')
 
         # server inquiry period and timeouts (in seconds)
-        self.inquiry_period = 5
+        # modified, faster poll
+        #self.inquiry_period = 5
+        self.inquiry_period = 1
         self.inquiry_timeout = 60
         self.upload_parameters_timeout = 600
         self.download_parameters_timeout = 600
