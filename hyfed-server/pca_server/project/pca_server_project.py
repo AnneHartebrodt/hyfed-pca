@@ -86,7 +86,7 @@ class PcaServerProject(HyFedServerProject):
 
             use_smpc = bool(creation_request.data[PcaProjectParameter.USE_SMPC])
             pca_model_instance.use_smpc = use_smpc
-            self.speedup = use_smpc
+            self.use_smpc = use_smpc
 
             self.current_iteration = 1
             pca_model_instance.current_iteration = 1
@@ -203,6 +203,7 @@ class PcaServerProject(HyFedServerProject):
                 self.step == PcaProjectStep.CENTER_AND_SCALE_DATA:
             self.H_aggregation()
             # periodical orthonormalisation
+            # even without speedup the first 5
             if self.current_iteration == 1 and (self.current_iteration % 100 == 0) or not self.speedup:
                 if self.federated_qr:
                     self.set_step(PcaProjectStep.ORTHONORMALISE_EIGENVECTOR_NORM)
@@ -217,7 +218,7 @@ class PcaServerProject(HyFedServerProject):
 
         elif self.step == PcaProjectStep.COMPUTE_H_NOT_G:
             self.H_aggregation()
-            if self.current_iteration % 10 == 0 or self.converged:
+            if (self.current_iteration % 100 == 0) or self.converged:
                 self.set_step(PcaProjectStep.ORTHONORMALISE_EIGENVECTOR_NORM)
             else:
                 self.set_step(PcaProjectStep.COMPUTE_H_NOT_G)

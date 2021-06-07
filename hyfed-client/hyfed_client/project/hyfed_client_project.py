@@ -822,6 +822,7 @@ class HyFedClientProject:
         self.log(f"Network send time: {self.network_send_timer.get_total_duration()}", include_date=False)
         self.log(f"Network receive time: {self.network_receive_timer.get_total_duration()}", include_date=False)
         self.log(f"Idle time: {self.idle_timer.get_total_duration()}", include_date=False)
+        #self.log(f"Bandwidth: {self.}", include_date=False)
 
     def save_log(self, file_path=None):
         """ Save log file """

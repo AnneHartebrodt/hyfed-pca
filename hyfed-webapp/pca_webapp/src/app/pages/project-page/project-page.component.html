@@ -93,23 +93,116 @@
     </div>
 
     <!-- Result panel -->
+<!--    <div class="card" *ngIf="project.status !== 'Created'">-->
+<!--      <div class="card-content">-->
+<!--        <div class="content">-->
+<!--          <div class="control is-pulled-right">-->
+<!--            <a class="button" [href]="downloadLink">-->
+<!--              <span class="icon"><i class="fa fa-download"></i></span>-->
+<!--              <span>Download as .zip</span>-->
+<!--            </a>-->
+<!--          </div>-->
+<!--          <h3>Project Result</h3>-->
+
+<!--        </div>-->
+<!--        <div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+
+        <!-- Runtime statistics panel -->
     <div class="card" *ngIf="project.status !== 'Created'">
       <div class="card-content">
         <div class="content">
-          <div class="control is-pulled-right">
-            <a class="button" [href]="downloadLink">
-              <span class="icon"><i class="fa fa-download"></i></span>
-              <span>Download as .zip</span>
-            </a>
-          </div>
-          <h3>Project Result</h3>
+          <h3>Runtime statistics (seconds)</h3>
+          <table class="table">
+            <thead>
+            </thead>
+            <tbody>
+            <tr>
+              <th>
+                <span>Client (average)</span>
+              </th>
+              <td>
+                <span>Computation: {{project.clientComputation}}</span>
+              </td>
+              <td>
+                <span>Network send: {{project.clientNetworkSend}}</span>
+              </td>
+              <td>
+                <span>Network receive: {{project.clientNetworkReceive}}</span>
+              </td>
+              <td>
+                <span>Idle: {{project.clientIdle}}</span>
+              </td>
+            </tr>
 
-        </div>
-        <div>
+            <tr>
+              <th>
+                <span>Compensator</span>
+              </th>
+              <td>
+                <span>Computation: {{project.compensatorComputation}}</span>
+              </td>
+              <td>
+                <span>Network send: {{project.compensatorNetworkSend}}</span>
+              </td>
+            </tr>
+
+            <tr>
+              <th>
+                <span>Server</span>
+              </th>
+              <td>
+                <span>Computation: {{project.serverComputation}}</span>
+              </td>
+            </tr>
+
+            <tr>
+              <th>
+                <span>Total</span>
+              </th>
+              <td>
+                <span><b>{{project.runtimeTotal}}</b></span>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+
         </div>
       </div>
     </div>
 
+     <!-- Network statistics panel -->
+    <div class="card" *ngIf="project.status !== 'Created'">
+      <div class="card-content">
+        <div class="content">
+          <h3>Network statistics</h3>
+          <table class="table">
+            <thead>
+            <tr>
+              <th>Clients -> Server</th>
+              <th>Server -> Clients</th>
+              <th>Clients -> Compensator</th>
+              <th>Compensator -> Server</th>
+              <th>Total</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>{{project.clientServer}}</td>
+              <td>{{project.serverClient}}</td>
+              <td>{{project.clientCompensator}}</td>
+              <td>{{project.compensatorServer}}</td>
+              <td>{{project.trafficTotal}}</td>
+
+            </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+    </div>
     <!-- Participants panel at the bottom of the page -->
     <div class="card" *ngIf="haveRole('coordinator') && tokens !== null">
       <div class="card-content">

@@ -65,6 +65,7 @@ class PcaClientProject(HyFedClientProject):
         self.all_global_eigenvector_norms = []
         self.current_vector_index = 0
         self.orthonormalisation_done = False
+        self.current_iteration = 0
 
         # Default settings
         self.mean_impute = True
@@ -117,6 +118,8 @@ class PcaClientProject(HyFedClientProject):
             elif self.project_step == PcaProjectStep.COMPUTE_H_AND_POOL:
                 # We recieve the orthogonalised G matrix
                 # and compute the local H matrices.
+                self.current_iteration +=1
+
                 if self.federated_qr:
                     self.normalise_orthogonalised_matrix()
                     self.local_DxG()
@@ -126,6 +129,7 @@ class PcaClientProject(HyFedClientProject):
 
             elif self.project_step == PcaProjectStep.COMPUTE_H_NOT_G:
                 # Compute a new H(ope) without othogonalising H
+                self.current_iteration += 1
                 self.local_DTxH()
                 self.local_DxG()
 
@@ -437,7 +441,8 @@ class PcaClientProject(HyFedClientProject):
             self.h_matrix = H_i
             if self.use_smpc:
                 self.set_compensator_flag()
-            self.local_parameters[PcaLocalParameter.GI_MATRIX]  = G_i_updated
+            if not self.federated_qr:
+                self.local_parameters[PcaLocalParameter.GI_MATRIX]=G_i_updated
 
         except Exception as exception:
             self.log(f"\t{exception}\n")
@@ -577,11 +582,21 @@ class PcaClientProject(HyFedClientProject):
                 self.pca_dataset_file_path + '_' + str(self.project_id) + '.row_names')
             pd.DataFrame(self.get_h_matrix()).to_csv(self.pca_dataset_file_path + '_' + str(self.project_id) + '.h')
 
+            self.log_run_information()
             self.local_parameters[PcaLocalParameter.GI_MATRIX] = self.get_g_matrix()
 
         except Exception as exception:
             self.log(f"\t{exception}\n")
             self.project_failed()
+
+    def log_run_information(self):
+        with open(self.pca_dataset_file_path + '_' + str(self.project_id) + '.run_info', 'w') as handle:
+            handle.write("\nRuntime (seconds)")
+            handle.write(f"Computation time: {self.computation_timer.get_total_duration()}")
+            handle.write(f"Network send time: {self.network_send_timer.get_total_duration()}")
+            handle.write(f"Network receive time: {self.network_receive_timer.get_total_duration()}")
+            handle.write(f"Idle time: {self.idle_timer.get_total_duration()}")
+            handle.write(f"Iterations: {self.current_iteration}")
 
     def get_g_matrix(self):
         return self.g_matrix
