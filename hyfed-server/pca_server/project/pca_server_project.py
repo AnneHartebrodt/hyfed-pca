@@ -105,7 +105,8 @@ class PcaServerProject(HyFedServerProject):
             self.current_vector_index = 0
             self.orthonormalisation_done = False
             self.deltas = []
-
+            self.convergence_countdown = 100
+            self.required = np.ceil(self.k)*0.8
 
             logger.info(f"Project {self.project_id}: PCA specific attributes initialized!")
 
@@ -218,6 +219,7 @@ class PcaServerProject(HyFedServerProject):
 
         elif self.step == PcaProjectStep.COMPUTE_H_NOT_G:
             self.H_aggregation()
+
             if (self.current_iteration % 100 == 0) or self.converged:
                 self.set_step(PcaProjectStep.ORTHONORMALISE_EIGENVECTOR_NORM)
             else:
@@ -442,7 +444,6 @@ class PcaServerProject(HyFedServerProject):
         nr_converged = 0
         col = 0
         converged = False
-        required = current.shape[1]
         deltas = []
         while col < current.shape[1] and not converged:
             # check if the scalar product of the current and the previous eigenvectors
@@ -452,8 +453,11 @@ class PcaServerProject(HyFedServerProject):
             deltas.append(delta)
             if delta >= 1 - tolerance:
                 nr_converged = nr_converged + 1
-            if nr_converged >= required:
-                converged = True
+            if nr_converged >= self.required:
+                if self.convergence_countdown <=0 or nr_converged==current.shape[1]:
+                    converged = True
+                else:
+                    self.convergence_countdown = self.convergence_countdown-1
             col = col + 1
         self.deltas = deltas
         return converged

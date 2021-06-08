@@ -94,7 +94,7 @@ class HyFedClientProject:
         # server inquiry period and timeouts (in seconds)
         # modified, faster poll
         #self.inquiry_period = 5
-        self.inquiry_period = 1
+        self.inquiry_period = 5
         self.inquiry_timeout = 60
         self.upload_parameters_timeout = 600
         self.download_parameters_timeout = 600
@@ -128,6 +128,7 @@ class HyFedClientProject:
 
         if self.operation_status == OperationStatus.DONE:
             self.operation_status = OperationStatus.IN_PROGRESS
+
 
     def set_operation_status_failed(self):
         """ is called whenever exception occurred in any function """
