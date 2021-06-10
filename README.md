@@ -9,8 +9,8 @@
 </p>
 
 ## About
-**HyFed** is a framework to develop federated, privacy-preserving machine learning algorithms. It is developed at the Technical University of Munich (TUM).
-HyFed consists of four main components: 
+**Federated PCA** is a web based tool demonstrating the feasibiliy of federated learning, more specifically federated principal component analysis. It is developed at the Computational Biology Group at the University of Southern Denmark (SDU). The tool is based on the framework **HyFed** developed at Technical University of Munich (TUM).
+Federated PCA consists of four main components: 
 1. **WebApp** to set up the (hyper-)parameters of the federated algorithm
 2. **Client** to compute the local model and perturb it with noise 
 3. **Compensator** to calculate the aggregated noise by aggregating the noise values from the clients
@@ -20,23 +20,19 @@ HyFed consists of four main components:
 <p float="left">
 <img src="hyfed-docs/readme/img/main/hyfed_arch.png" width="600" height="300">
    
-**HyFed** provides enhanced privacy while preserving the utility of the global model, i.e. it hides the original values of the local parameters
-of a client from the server, compensator, or the other clients without adversely affecting the accuracy of the global model. **HyFed** supports the simulation mode, where all components
- are running in the same machine and communicate over the loopback network, and the federated mode in which the components are installed in separate machines and 
-securely communicate with each other over the Internet. **HyFed** provides developers with the client and server Python API 
-to implement their own federated, privacy-preserving algorithms.
+Federated PCA obfuscates the local parameters of a client from the aggregation server without adversely affecting the accuracy of the global model. 
 
-To see how to **install** the **HyFed** framework, please see [HyFed-Install](hyfed-docs/readme/install_hyfed.md). <br/>
-To learn how to **develop** your own federated tool using the **HyFed** API, please see [HyFed-Develop](hyfed-docs/readme/develop_hyfed.md). <br/>
+To see how to **install** the **Federated PCA** framework, please see [HyFed-Install](hyfed-docs/readme/install_hyfed.md). <br/>
 To **run** the **HyFed** framework, please see [HyFed-Run](hyfed-docs/readme/run_hyfed.md). <br/>
-To learn more about **HyFed**, please read the [HyFed manuscript](https://arxiv.org/abs/2105.10545).
+
 
 ## License
-The **HyFed** source code is licensed under the Apache License Version 2.0. (C) 2021, the **HyFed** developers.
+The **HyFed** and **FederatedPCA** source codes are licensed under the Apache License Version 2.0. (C) 2021, the **HyFed** developers and Federated PCA developers.
 
 ## Acknowledgement
-This software is based on the **HyFed** framework developed at [TUM-AIMED](https://github.com/TUM-AIMED/hyfed)
-## Contact
+This software is based on the **HyFed** framework developed at [TUM-AIMED](https://github.com/TUM-AIMED/hyfed). To learn more about **HyFed**, please read the [HyFed manuscript](https://arxiv.org/abs/2105.10545).
+
+   ## Contact
 In case of questions or problems regarding **Federated PCA**, please contact the  developers: Anne Hartebrodt
    
 ## Disclaimer
