@@ -2,12 +2,6 @@
 
 ## __Hybrid federated principal component analysis for Privacy-preserving Machine Learning__
 
-<p float="left">
-<img src="hyfed-docs/readme/img/main/hyfed_logo.png" width="180" height="60">
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<!-- <img src="hyfed-docs/readme/img/main/tum_logo.png" width="100" height="50"> -->
-</p>
-
 ## About
 **Federated PCA** is a web based tool demonstrating the feasibiliy of federated learning, more specifically federated principal component analysis. It is developed at the Computational Biology Group at the University of Southern Denmark (SDU). The tool is based on the framework **HyFed** developed at Technical University of Munich (TUM).
 Federated PCA consists of four main components: 
